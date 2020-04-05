@@ -16,8 +16,15 @@ Parameters:
     Type: String
     Description: Add new name
     MinLength: '5'
-    MaxLength: '41'
+    MaxLength: '20'
     ConstraintDescription: the UserGivenName must be between 5 and 41 characters
+  UserGroupName:
+    NoEcho: 'false'
+    Type: String
+    Description: Add new Group name
+    MinLength: '4'
+    MaxLength: '41'
+    ConstraintDescription: the UserGroupName must be between 4 and 41 characters  
 Resources:
   CFNUser:
     Type: AWS::IAM::User
@@ -27,8 +34,12 @@ Resources:
       UserName: !Ref 'UserGivenName'  
   CFNUserGroup:
     Type: AWS::IAM::Group
+    Properties:
+      GroupName: !Ref 'UserGroupName'
   CFNAdminGroup:
     Type: AWS::IAM::Group
+    Properties:
+      GroupName: Admin-Group
   Users:
     Type: AWS::IAM::UserToGroupAddition
     Properties:
